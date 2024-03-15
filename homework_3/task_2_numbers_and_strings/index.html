@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let username = prompt("Введіть ваше ім'я");
+        let surname = prompt("Введіть ваше прізвище");
+        let age = prompt("Введіть ваш вік");
+
+        let stringFormat = (str) => {
+            return str.charAt(0).toUpperCase() + str.substring(1);
+        }
+
+        alert(`${ stringFormat(surname) } ${ stringFormat(username) } (${ age })`);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
