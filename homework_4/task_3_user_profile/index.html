@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let message = "";
+
+        const capitals = {
+            "КИЇВ": "України",
+            "ВАШИНГТОН": "США",
+            "ЛОНДОН": "Велоко Британії"
+        };
+
+        const champions = {
+            "футбол": "Кріштіано Роналдо",
+            "гольф": "Хідеки Мацуяма",
+            "баскетбол": "Сью Берд"
+        };
+
+        const questions = {
+            "yearBirth": "рік народження",
+            "city": "місто в якому живете",
+            "sportType": "вид спорту"
+        };
+
+        let promptsData = {};
+        for (const key in questions) {
+            let question = questions[key];
+
+            promptsData[key] = prompt(`Введіть ${ question }`);
+            if (!promptsData[key]) {
+                alert(`Шкода, що Ви не захотіли ввести ${ question }`);
+            }
+        }
+
+        if (promptsData["yearBirth"]) {
+            message += `${ new Date().getFullYear() - promptsData["yearBirth"] } років\n`;
+        }
+
+        if (promptsData["city"]) {
+            let country = capitals[promptsData["city"].toUpperCase()] ?? null;
+            message += country
+                ? `Ти живеш у столиці ${ country }\n`
+                : `Ти живеш у місті ${ promptsData["city"] }\n`
+        }
+
+        if (promptsData["sportType"]) {
+            let champion = champions[promptsData["sportType"].toLowerCase()] ?? null;
+            message += champion
+                ? `Круто! Хочеш стати як, ${ champion }`
+                : "";
+        }
+
+        alert(message);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
