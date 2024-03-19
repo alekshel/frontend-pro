@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let userNumbers = prompt("Введіть будь-яке 3 значне число").split("");
+
+        let getSumSameNumbers = (numbers) => {
+            let sumCount = 0;
+            numbers.forEach(number => {
+                sumCount += numbers.filter(n => n === number).length;
+            })
+            return sumCount;
+        }
+
+        let sum = getSumSameNumbers(userNumbers);
+        switch (sum) {
+            case userNumbers.length:
+                alert("Всі числа різні");
+                break;
+            case userNumbers.length * userNumbers.length:
+                alert("Всі числа однакові");
+                break;
+            default:
+                alert("Деякі числа однакові");
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
