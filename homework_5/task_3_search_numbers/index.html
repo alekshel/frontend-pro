@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let promptNumber = 0;
+        let isRight = false;
+
+        while (!isRight) {
+            promptNumber = +prompt("Введіть ціле число");
+            switch (true) {
+                case [0, null, undefined].includes(promptNumber):
+                    alert("Ви не ввели число, повторіть спробу");
+                    break;
+                case isNaN(promptNumber):
+                    alert("Це не число, повторіть спробу");
+                    break;
+                case promptNumber < 0:
+                    alert("Число має бути позитивним, повторіть спробу");
+                    break;
+                case promptNumber % 1 !== 0:
+                    alert("Число не є цілим, повторіть спробу");
+                    break;
+                default:
+                    isRight = true;
+            }
+        }
+
+        for (let i = 1; i <= 100; i++) {
+            if (i * i <= promptNumber) {
+                console.log(`${ i } <= ${ promptNumber }`);
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
