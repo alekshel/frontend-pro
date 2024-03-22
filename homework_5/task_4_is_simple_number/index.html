@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let promptNumber = 0;
+        let isRight = false;
+        const isSimple = (num) => {
+            if (num <= 1) {
+                alert("0 та 1 не є простими числами");
+                return;
+            }
+
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    alert(`Число ${ num } не є простим`);
+                    return;
+                }
+            }
+
+            alert(`Число ${ num } просте`);
+        }
+
+        while (!isRight) {
+            promptNumber = +prompt("Введіть ціле число");
+            switch (true) {
+                case isNaN(promptNumber):
+                    alert("Це не число, повторіть спробу");
+                    break;
+                case promptNumber < 0:
+                    alert("Число має бути позитивним, повторіть спробу");
+                    break;
+                case promptNumber % 1 !== 0:
+                    alert("Число не є цілим, повторіть спробу");
+                    break;
+                default:
+                    isRight = true;
+            }
+        }
+
+        isSimple(promptNumber);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
