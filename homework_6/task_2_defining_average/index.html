@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        function calcAverage(arrSymbols) {
+            let counter = 0;
+            let sum = 0;
+
+            for (let i = 0; i < arrSymbols.length; i++) {
+                let value = arrSymbols[i];
+                if (isNaN(value) || typeof value === "boolean") {
+                    continue;
+                }
+                sum += +value;
+                counter++;
+            }
+
+            if (!counter) {
+                console.error("Помилка не можливо ділити на нуль");
+                return;
+            }
+
+            console.log("Середнє арифмитичне значення");
+            console.log(`${ sum } / ${  counter} = ${ sum / counter }`);
+        }
+
+        const arrSymbols = [3, "", "sadsad", 2, "10", 15, true];
+        calcAverage(arrSymbols);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
