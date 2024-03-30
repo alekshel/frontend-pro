@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        function removeSymbols(text, arrSymbols) {
+            if (!text || text === "") {
+                return "Ви не надали текст, який потрібно редагувати";
+            }
+
+            if (!arrSymbols.length) {
+                return "Ви не надали символів, які потрібно видалити";
+            }
+
+            let output = text;
+            for (let i = 0; i < arrSymbols.length; i++) {
+                const regex = new RegExp(arrSymbols[i], 'gi');
+                output = output.replaceAll(regex, "");
+            }
+
+            return output;
+        }
+
+        const text = prompt("Введіть будь-який текст");
+        let arrSymbols = [];
+        let letter = "";
+
+        do {
+            letter = prompt("Введіть символ для видалення. Щоб вийти, натисніть на кнопку \"Скасувати\"");
+            if (letter) {
+                arrSymbols.push(letter);
+            }
+        } while (letter != null);
+
+        alert(
+            removeSymbols(text, arrSymbols)
+        );
+    </script>
+</head>
+<body>
+
+</body>
+</html>
