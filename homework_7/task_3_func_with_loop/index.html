@@ -9,14 +9,16 @@
 
     <script>
         (function() {
+            let value = 0;
+
             for (let i = 0; i < 10; i++) {
-                let value = +prompt("Введіть число");
-                if (value > 100) {
-                    console.log(value);
+                value = +prompt("Введіть число");
+                if (value > 100 || isNaN(value)) {
                     break;
                 }
-                alert(`Ваше число ${ value } - менше 100`);
             }
+
+            console.log(value)
         })();
     </script>
 </head>
