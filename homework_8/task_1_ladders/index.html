@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        const ladders = {
+            currentStep: 0,
+            up: function () {
+                this.currentStep++;
+                return this;
+            },
+            down: function () {
+                this.currentStep--;
+                return this;
+            },
+            showStep: function () {
+                console.log(this.currentStep);
+                return this;
+            }
+        };
+
+        ladders.up().up().down().showStep(); // 1
+    </script>
+</head>
+<body>
+
+</body>
+</html>
