@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        const departments = [
+            {
+                name: 'Engineering',
+                manager: {name: 'John Doe', salary: 8000},
+                employees: [
+                    {name: 'Jane Smith', salary: 6000},
+                    {name: 'Bob Johnson', salary: 5500},
+                ],
+                childDepartments: [
+                    {
+                        name: 'FrontEnd',
+                        manager: {name: 'Tom Wilson', salary: 7000},
+                        employees: [
+                            {name: 'Samantha Lee', salary: 5500},
+                            {name: 'Alex Brown', salary: 5000},
+                        ]
+                    },
+                    {
+                        name: 'BackEnd',
+                        manager: {name: 'Sara Davis', salary: 7500},
+                        employees: [
+                            {name: 'David Miller', salary: 6000},
+                            {name: 'Emily Wilson', salary: 5500},
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Marketing',
+                manager: {name: 'Michael Lee', salary: 7000},
+                employees: [
+                    {name: 'Karen Miller', salary: 5500},
+                    {name: 'Daniel Jones', salary: 6000},
+                ]
+            }
+        ];
+
+        // let dump = {};
+        //
+        // const calcSalary = (department) => {
+        //     return department.manager.salary + department.employees.reduce(
+        //         (sum, employee) => sum + employee.salary, 0
+        //     )
+        // }
+        //
+        // const calcForDepartment = (departments, isReturn = false) => {
+        //     let sumForDepartment = 0;
+        //
+        //     for (let i = 0; i < departments.length; i++) {
+        //         const department = departments[i];
+        //
+        //         if (department.childDepartments && department.childDepartments.length) {
+        //             sumForDepartment = calcForDepartment(department.childDepartments, true);
+        //         } else {
+        //             sumForDepartment += calcSalary(department);
+        //         }
+        //
+        //         dump[department.name] = {
+        //             totalSalary: calcSalary(department),
+        //             totalSalaryWithChildDepartments: sumForDepartment,
+        //         }
+        //     }
+        //
+        //     if (isReturn) return sumForDepartment;
+        // }
+        //
+        // calcForDepartment(departments);
+        // console.log(dump)
+
+        function calculateDepartmentSalaries(departments) {
+            const result = {};
+
+            function calculateSalaries(department) {
+                const { name, manager, employees, childDepartments } = department;
+                const totalSalary = manager.salary + employees.reduce((sum, emp) => sum + emp.salary, 0);
+
+                let totalSalaryWithChildDepartments = totalSalary;
+                if (childDepartments?.length > 0) {
+                    const childSalaries = childDepartments.reduce(
+                        (sum, child) => sum + calculateSalaries(child).totalSalary,
+                        0
+                    );
+                    totalSalaryWithChildDepartments = totalSalary + childSalaries;
+                }
+
+                const departmentResult = {
+                    totalSalary
+                };
+
+                if (totalSalaryWithChildDepartments !== totalSalary) {
+                    departmentResult.totalSalaryWithChildDepartments = totalSalaryWithChildDepartments;
+                }
+
+                result[name] = departmentResult;
+                return result[name];
+            }
+
+            departments.forEach(department => calculateSalaries(department));
+            return result;
+        }
+
+        const result = calculateDepartmentSalaries(departments);
+        console.log(result);
+
+        // Пояснення:
+        //
+        // Функція calculateDepartmentSalaries приймає масив з інформацією про департаменти.
+        // Всередині цієї функції створюється внутрішня рекурсивна функція calculateSalaries,
+        // яка обчислює загальну зарплатню для кожного департаменту.
+        // Функція calculateSalaries спочатку обчислює загальну зарплатню поточного департаменту,
+        // додаючи зарплатню керівника та всіх співробітників.
+        // Далі, якщо у департаменті є піддепартаменти, вона рекурсивно викликає себе для кожного піддепартаменту
+        // та додає їхню загальну зарплатню до загальної зарплатні поточного департаменту.
+        // Результат обчислень зберігається в об'єкті result, де ключами є назви департаментів,
+        // а значеннями - об'єкти з ключами totalSalary та totalSalaryWithChildDepartments.
+        // На завершення, функція calculateDepartmentSalaries повертає об'єкт result.
+        //
+        // Таким чином, ця функція ефективно будує дерево департаментів
+        // та підраховує загальну зарплатню для кожного з них, включаючи підпорядковані відділи.
+    </script>
+</head>
+<body>
+
+</body>
+</html>
