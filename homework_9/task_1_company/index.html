@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let company = {
+            sales: {
+                employees: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 600 }]
+            },
+            development: {
+                web: {
+                    employees: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
+                    children: {
+                        react: {
+                            employees: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }]
+                        },
+                        vue: {
+                            employees: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }]
+                        }
+                    }
+                },
+                internals: {
+                    employees: [{name: 'Jack', salary: 1300}]
+                }
+            }
+        };
+
+        function calculateTotalSalary(department) {
+            let total = 0;
+
+            if (department.employees) {
+                department.employees.forEach(emp => {
+                    total += emp.salary;
+                });
+            }
+
+            for (let subDepartment in department) {
+                if (typeof department[subDepartment] === 'object') {
+                    total += calculateTotalSalary(department[subDepartment]);
+                }
+            }
+
+            return total;
+        }
+
+        let totalSalary = calculateTotalSalary(company);
+        console.log(totalSalary);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
