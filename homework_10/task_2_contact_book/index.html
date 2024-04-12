@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        let contactBook = {
+            contacts: [],
+            addContact: function (contact) {
+                this.contacts.push(contact);
+            },
+            searchByName: function (name) {
+                return this.contacts.filter(contact => contact.name === name);
+            }
+        }
+
+        contactBook.addContact({
+            name: "Олексій",
+            phone: "380123456789",
+            email: "example@gmail.com"
+        });
+
+        contactBook.addContact({
+            name: "Олександр",
+            phone: "380987654321",
+            email: "example@gmail.com"
+        });
+
+        console.log(contactBook.searchByName("Олексій"));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
