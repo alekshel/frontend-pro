@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Випадкове зображення</h1>
+    <img src="" alt="">
+    <br/>
+    <button class="js--change-image">Змінити зображення</button>
+
+    <script>
+        const images = [
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1vCVwVp2W8FaOa0z2ioIHi2snKa24AfDVIpqjpJzmOA&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJwqHbhPiZKwwsbaACH5xHJ4Y7avw3ZeF47vk9SDmwyg&shttps://static6.depositphotos.com/1003369/659/i/450/depositphotos_6591667-stock-photo-close-up-of-beautiful-womanish.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQShF5GqSVhcqWCA-2s80u2GQqutkg0xniBKeJCmk_ASQ&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM6yNAkl6s-hYgq8BbzVabKJ201a1PmosMCOlXLgmJ-w&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRepQA6ZXKz5-_MjKZNAWo37PBHaJt60gqfOtE0dvVN8g&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm8oOjA2rRbc_f47bKVi150hf1PfcIvA7ayzrHZMdN7A&s',
+            'https://webmaestro.com.ua/img/blog/20201016122530_.jpeg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJnirMCrdpVyTuiWaVDr8F96PqtuMQRD_fLnUMU4WVJQ&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxhbmjwJuCPoxGuogPPJtQTNjl9ehBPKpuC614HIs5Tw&s'
+        ];
+
+        function changeImage() {
+            const img = document.querySelector('img');
+            const randomIndex = Math.floor(Math.random() * images.length);
+            img.src = images[randomIndex];
+        }
+
+        changeImage();
+
+        const button = document.querySelector('.js--change-image');
+        button.addEventListener('click', changeImage);
+    </script>
+</body>
+</html>
