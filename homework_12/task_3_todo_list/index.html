@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        #todo-list button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul id="todo-list"></ul>
+    <div>
+        <label for="todo-input">Нове завдання:</label>
+        <input type="text" id="todo-input" placeholder="Наприклад, зробити ДЗ"/>
+        <button id="js--add-todo">Додати</button>
+    </div>
+
+    <script>
+        const todoList = document.getElementById('todo-list');
+        const todoInput = document.getElementById('todo-input');
+        const addTodo = document.getElementById('js--add-todo');
+
+        addTodo.addEventListener('click', () => {
+            const todoText = todoInput.value;
+            if (!todoText) {
+                alert('Введіть текст завдання');
+                return;
+            }
+
+            const htmlTemplate = `
+                <li>
+                    <span>${todoText}</span>
+                    <button>Видалити</button>
+                </li>
+            `;
+            todoList.insertAdjacentHTML('beforeend', htmlTemplate);
+
+            todoInput.value = '';
+        });
+
+        todoList.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName === 'BUTTON') {
+                target.closest('li').remove();
+            }
+        });
+    </script>
+</body>
+</html>
