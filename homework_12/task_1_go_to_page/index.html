@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="js--set-link">Вставити посилання</button>
+    <button id="js--go-to">Перейти</button>
+
+    <script>
+        const setLink = document.getElementById('js--set-link');
+        const goTo = document.getElementById('js--go-to');
+        const defaultLink = 'https://www.google.com';
+
+        setLink.addEventListener('click', () => {
+            const link = prompt('Введіть посилання', defaultLink);
+            goTo.setAttribute('data-link', link);
+        });
+
+        goTo.addEventListener('click', (event) => {
+            const link = event.target.getAttribute('data-link');
+            if (!link) {
+                alert('Посилання не вказано');
+                return;
+            }
+            window.location.href = link;
+        });
+    </script>
+</body>
+</html>
