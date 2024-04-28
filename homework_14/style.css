@@ -113,3 +113,12 @@ img {
     background: var(--royal-primary-color);
     transition: all .3s ease-out;
 }
+
+.royal-slider__progress-bar-item {
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
+.royal-slider__progress-bar-item:hover {
+    opacity: .5;
+}

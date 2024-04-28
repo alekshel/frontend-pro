@@ -17,9 +17,10 @@ function RoyalSlider() {
     let isDragging = false;
     let hasLinkPermission = false;
 
-    this.init = () => {
+    this.init = ({ intervalPlayTime, progressType }) => {
         this.setButtons();
         this.progressBarInit();
+        this.dotEventsInit();
         this.setProgress();
         this.setDragEvents();
         this.autoPlay();
@@ -47,6 +48,11 @@ function RoyalSlider() {
         this.doAction();
     };
 
+    this.goTo = (slideIndex) => {
+        activeSlide = slideIndex;
+        this.doAction();
+    }
+
     this.setTranslate = (translateX) => {
         wrapper.style.transform = `translateX(${translateX}px)`;
     }
@@ -62,15 +68,44 @@ function RoyalSlider() {
     this.progressBarInit = () => {
         const slidesCount = wrapper.children.length;
         progressBarStep = progressBar.offsetWidth / slidesCount
+
+        progressBar.style.display = 'flex';
+        for (let i = 0; i < slidesCount; i++) {
+            const progressBarItem = document.createElement('div');
+            progressBarItem.classList.add('royal-slider__progress-bar-item');
+            progressBarItem.style.width = `${progressBarStep}px`;
+            progressBar.appendChild(progressBarItem);
+        }
     };
+
+    this.dotEventsInit = () => {
+        progressBar.querySelectorAll('.royal-slider__progress-bar-item').forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.goTo(index);
+            });
+        });
+    }
 
     this.setProgress = () => {
         this.disableButtons();
-        let progress = (activeSlide + 1) * progressBarStep;
-        progressBar.style.setProperty(
-            "--progress-bar-width",
-            `${progress}px`
-        );
+
+        for (let i = 0; i < progressBar.children.length; i++) {
+            if (i <= activeSlide) {
+                progressBar
+                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')')
+                    .style.backgroundColor = 'var(--royal-primary-color)';
+            } else {
+                progressBar
+                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')')
+                    .style.backgroundColor = 'var(--royal-secondary-color)';
+            }
+        }
+
+        // let progress = (activeSlide + 1) * progressBarStep;
+        // progressBar.style.setProperty(
+        //     "--progress-bar-width",
+        //     `${progress}px`
+        // );
     };
 
     this.setButtons = () => {
@@ -148,4 +183,7 @@ function RoyalSlider() {
 }
 
 const royalSlider = new RoyalSlider();
-royalSlider.init();
+royalSlider.init({
+    intervalPlayTime: 2500,
+    progressType: 'line'
+});
