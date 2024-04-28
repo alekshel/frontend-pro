@@ -68,10 +68,15 @@ img {
     border: 0;
     border-radius: 50%;
     background: var(--royal-secodary-color);
+    transition: all .3s ease-out;
+}
+
+.royal-slider__btn:hover {
+    opacity: .75;
 }
 
 .royal-slider__btn:disabled {
-    opacity: 0.5;
+    opacity: .3;
 }
 
 .royal-slider__btn svg {
@@ -103,6 +108,11 @@ img {
     overflow: hidden;
 }
 
+.royal-slider__progress-bar * {
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
 .royal-slider__progress-bar::before {
     content: '';
 
@@ -114,11 +124,11 @@ img {
     transition: all .3s ease-out;
 }
 
-.royal-slider__progress-bar-item {
-    transition: all .3s ease-out;
-    cursor: pointer;
+.royal-slider__progress-bar-item.dots {
+    background-color: var(--royal-primary-color);
+    opacity: 0;
 }
 
-.royal-slider__progress-bar-item:hover {
-    opacity: .5;
+.royal-slider__progress-bar-item.dots:hover {
+    opacity: .5 !important;
 }

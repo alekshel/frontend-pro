@@ -1,15 +1,21 @@
 'use strict';
 
-function RoyalSlider() {
-    const INTERVAL_MILLISECONDS = 2500;
+function RoyalSlider({
+     className = '.js--royal-slider',
+     intervalPlayTime = 2500,
+     progressType = 'basic',
+     leftDirection = false
+}) {
+    const INTERVAL_MILLISECONDS = intervalPlayTime;
 
-    const slider = document.querySelector('.js--royal-slider');
+    const slider = document.querySelector(className);
     const wrapper = slider.querySelector('.js--royal-slider__wrapper');
     const progressBar = slider.querySelector('.js--royal-slider__progress-bar');
 
     const prevButton = slider.querySelector('.js--royal-slider__btn--prev');
     const nextButton = slider.querySelector('.js--royal-slider__btn--next');
 
+    const slidesCount = wrapper.children.length;
     let activeSlide = 0;
     let progressBarStep = 0;
 
@@ -17,7 +23,7 @@ function RoyalSlider() {
     let isDragging = false;
     let hasLinkPermission = false;
 
-    this.init = ({ intervalPlayTime, progressType }) => {
+    this.init = () => {
         this.setButtons();
         this.progressBarInit();
         this.dotEventsInit();
@@ -33,17 +39,13 @@ function RoyalSlider() {
     }
 
     this.prev = (isInfinity = false) => {
-        const step = isInfinity
-            ? wrapper.children.length - 1
-            : 0;
+        const step = isInfinity ? wrapper.children.length - 1 : 0;
         activeSlide = activeSlide <= 0 ? step : activeSlide - 1;
         this.doAction();
     };
 
     this.next = (isInfinity = false) => {
-        const step = isInfinity
-            ? 0
-            : activeSlide;
+        const step = isInfinity ? 0 : activeSlide;
         activeSlide = this.isLastSlide() ? step : activeSlide + 1;
         this.doAction();
     };
@@ -66,46 +68,72 @@ function RoyalSlider() {
     };
 
     this.progressBarInit = () => {
-        const slidesCount = wrapper.children.length;
-        progressBarStep = progressBar.offsetWidth / slidesCount
-
-        progressBar.style.display = 'flex';
-        for (let i = 0; i < slidesCount; i++) {
-            const progressBarItem = document.createElement('div');
-            progressBarItem.classList.add('royal-slider__progress-bar-item');
-            progressBarItem.style.width = `${progressBarStep}px`;
-            progressBar.appendChild(progressBarItem);
+        this.basicProgressBarInit();
+        switch (progressType) {
+            case 'basic':
+                break;
+            case 'dots':
+                this.dotsProgressBarInit();
+                this.dotEventsInit();
+                break;
+            default:
+                break;
         }
     };
 
+    this.basicProgressBarInit = () => {
+        progressBarStep = progressBar.offsetWidth / slidesCount;
+    }
+
+    this.dotsProgressBarInit = () => {
+        progressBar.style.display = 'flex';
+        for (let i = 0; i < slidesCount; i++) {
+            const progressBarItem = document.createElement('div');
+            progressBarItem.classList.add('royal-slider__progress-bar-item', progressType);
+            progressBarItem.style.width = `${progressBarStep}px`;
+            progressBar.appendChild(progressBarItem);
+        }
+    }
+
     this.dotEventsInit = () => {
-        progressBar.querySelectorAll('.royal-slider__progress-bar-item').forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                this.goTo(index);
+        progressBar
+            .querySelectorAll('.royal-slider__progress-bar-item')
+            .forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    this.goTo(index);
+                });
             });
-        });
     }
 
     this.setProgress = () => {
         this.disableButtons();
+        switch (progressType) {
+            case 'basic':
+                this.setBasicProgress();
+                break;
+            case 'dots':
+                this.setDotsProgress();
+                break;
+            default:
+                break;
+        }
+    };
 
+    this.setBasicProgress = () => {
+        let progress = (activeSlide + 1) * progressBarStep;
+        progressBar.style.setProperty("--progress-bar-width", `${progress}px`);
+    };
+
+    this.setDotsProgress = () => {
         for (let i = 0; i < progressBar.children.length; i++) {
             if (i <= activeSlide) {
                 progressBar
-                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')')
-                    .style.backgroundColor = 'var(--royal-primary-color)';
+                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')').style.opacity = '1';
             } else {
                 progressBar
-                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')')
-                    .style.backgroundColor = 'var(--royal-secondary-color)';
+                    .querySelector('.royal-slider__progress-bar-item:nth-child(' + (i + 1) + ')').style.opacity = '0';
             }
         }
-
-        // let progress = (activeSlide + 1) * progressBarStep;
-        // progressBar.style.setProperty(
-        //     "--progress-bar-width",
-        //     `${progress}px`
-        // );
     };
 
     this.setButtons = () => {
@@ -114,13 +142,9 @@ function RoyalSlider() {
     };
 
     this.disableButtons = () => {
-        activeSlide <= 0
-            ? prevButton.disabled = true
-            : prevButton.disabled = false;
+        activeSlide <= 0 ? prevButton.disabled = true : prevButton.disabled = false;
 
-        this.isLastSlide()
-            ? nextButton.disabled = true
-            : nextButton.disabled = false;
+        this.isLastSlide() ? nextButton.disabled = true : nextButton.disabled = false;
     };
 
     this.dragStart = (event) => {
@@ -176,14 +200,19 @@ function RoyalSlider() {
     this.autoPlay = () => {
         setInterval(() => {
             if (!this.isMouseOnSlider()) {
-                this.next(true);
+                leftDirection ? this.prev(true) : this.next(true);
             }
         }, INTERVAL_MILLISECONDS);
     };
 }
 
-const royalSlider = new RoyalSlider();
-royalSlider.init({
-    intervalPlayTime: 2500,
-    progressType: 'line'
+const royalSlider = new RoyalSlider({
+    progressType: 'dots'
 });
+royalSlider.init();
+
+const royalSlider2 = new RoyalSlider({
+    className: '.js--royal-slider-2',
+    leftDirection: true
+});
+royalSlider2.init();
