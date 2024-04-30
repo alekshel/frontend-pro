@@ -1,0 +1,136 @@
+.todo-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background: var(--color-dark-first);
+    border-radius: var(--def-radius);
+}
+
+.todo-app__list {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 3 - 40px / 3);
+    padding: 10px;
+
+    border: 2px solid #ccc;
+    border-radius: var(--def-radius);
+    background: var(--color-dark-second);
+}
+
+.todo-app__list h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    line-height: 30px;
+    color: var(--text-color);
+    opacity: .75;
+}
+
+.todo-app__tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 325px;
+    overflow-y: auto;
+}
+
+.todo-app__add-task {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 36px;
+    padding-left: 8px;
+
+    border: 2px solid transparent;
+    border-radius: var(--def-radius);
+
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
+.todo-app__add-task:hover {
+    border-color: var(--color-dark-third);
+}
+
+.todo-app__add-task svg {
+    height: 16px;
+    margin-right: 8px;
+    fill: var(--text-color);
+}
+
+.todo-app__list.empty {
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-dark-second);
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
+.todo-app__list.empty:hover {
+    background-color: var(--color-dark-third);
+}
+
+.todo-app__list.empty svg {
+    width: 35px;
+    fill: var(--text-color);
+}
+
+.todo-app__task {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: var(--def-radius);
+    background: var(--color-dark-third);
+}
+
+.todo-app__task div[contenteditable] {
+    width: 100%;
+    margin: 0 10px;
+    line-height: 20px;
+    border-bottom: 2px solid transparent;
+    transition: all .3s ease-out;
+}
+
+.todo-app__task div[contenteditable]:focus,
+.todo-app__task div[contenteditable]:hover {
+    border-color: var(--text-color);
+}
+
+.todo-app__task input[type="checkbox"]:checked ~ div[contenteditable] {
+    text-decoration: line-through;
+}
+
+.todo-app__delete-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 15px;
+    min-height: 25px;
+    width: 15px;
+    height: 25px;
+
+    cursor: pointer;
+}
+
+.todo-app__delete-task svg {
+    width: 15px;
+    fill: var(--text-color);
+    transition: all .3s ease-out;
+}
+
+.todo-app__delete-task:hover svg {
+    opacity: .75;
+}
+
+@media (max-width: 1000px) {
+    .todo-app__list {
+        width: calc(100% / 2 - 20px / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .todo-app__list {
+        width: 100%;
+    }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/basic.css">
+    <link rel="stylesheet" href="css/todo.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>ToDo List</h1>
+    <section id="js--todo-app" class="todo-app">
+        <div class="todo-app__list">
+            <h2 contenteditable="true">List header</h2>
+
+            <ul class="todo-app__tasks js--todo-app__tasks">
+                <li class="todo-app__task">
+                    <input type="checkbox" id="test"/>
+                    <label for="test"></label>
+
+                    <div contenteditable="true" class="js--todo-app__task__value">Task 1</div>
+
+                    <button class="todo-app__delete-task js--todo-app__delete-task">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+
+            <button class="todo-app__add-task js--todo-app__add-task">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                </svg>
+                <span>Add Task ...</span>
+            </button>
+        </div>
+        <div class="todo-app__list empty js--add-list">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+            </svg>
+        </div>
+    </section>
+</div>
+
+<script src="js/todo.js"></script>
+
+</body>
+</html>
