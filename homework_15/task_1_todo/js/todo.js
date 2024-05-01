@@ -1,6 +1,6 @@
 'use strict';
 
-function ToDo({ app, addListBtn }) {
+function ToDo({ addListBtn }) {
     const appListClassName = "js--todo-app__list";
     const appTasksClassName = "js--todo-app__tasks";
     const addTaskClassName = "js--todo-app__add-task";
@@ -48,19 +48,20 @@ function ToDo({ app, addListBtn }) {
     }
 
     const initAppHTML = () => {
-        taskLists.forEach((list, index) => {
-            addListBtn.insertAdjacentHTML("beforebegin", getListTemplate(index));
+        taskLists.forEach((list) => {
+            const listId = list.id;
+            createListHTML(listId);
 
-            const listElement = document.getElementById(`todo-app__list-${index}`);
-            listElement.querySelector("h2").textContent = list.name;
+            const listElement = document.getElementById(`todo-app__list-${listId}`);
+            setInputListNameEvent(listElement);
+            setEventCreateTask(listElement);
 
             list.tasks.forEach(task => {
-                const tasks = listElement.querySelector(`.${ appTasksClassName }`);
-                tasks.insertAdjacentHTML("beforeend", getTaskTemplate(list.id, task.id));
-                tasks.querySelector(`#todo-app__task-${task.id} .js--todo-app__task__value`).textContent = task.value;
+                let taskElement = createTaskHTML(listElement, task.id);
+                setTaskUpdateEvents(listElement, taskElement);
+                taskElement.querySelector(".js--todo-app__task__value").textContent = task.value;
+                taskElement.querySelector("input[type='checkbox']").checked = task.isCompleted;
             });
-
-            setEventCreateTask(listElement);
         });
     }
 
@@ -73,7 +74,7 @@ function ToDo({ app, addListBtn }) {
     }
 
     const addList = (id) => {
-        taskLists.push({ id, name: "", tasks: [] });
+        taskLists.push({ id: +id, name: "", tasks: [] });
         saveToStorage();
     }
 
@@ -113,14 +114,10 @@ function ToDo({ app, addListBtn }) {
         localStorage.setItem("taskLists", JSON.stringify(taskLists));
     }
 
-    const createListHTML = () => {
-        const id = document.querySelectorAll(".js--todo-app__list").length;
+    const createListHTML = (defId) => {
+        const id = defId ?? document.querySelectorAll(".js--todo-app__list").length;
         addListBtn.insertAdjacentHTML("beforebegin", getListTemplate(id));
-        addList(id);
-
-        const listElement = document.getElementById(`todo-app__list-${id}`);
-        setInputListNameEvent(listElement);
-        setEventCreateTask(listElement);
+        return id;
     }
 
     const setInputListNameEvent = (listElement) => {
@@ -133,24 +130,34 @@ function ToDo({ app, addListBtn }) {
 
     const setEventCreateTask = (listElement) => {
         const addTaskBtn = listElement.querySelector(`.${ addTaskClassName }`);
-        addTaskBtn.addEventListener("click", createTaskHTML.bind(this, listElement));
+        addTaskBtn.addEventListener("click", () => {
+            const taskElement = createTaskHTML(listElement);
+            setTaskUpdateEvents(taskElement, listElement);
+            addTaskToList(listElement.dataset.id, {
+                id: +taskElement.dataset.id,
+                value: "",
+                isCompleted: false
+            });
+        });
     }
 
-    const createTaskHTML = (listElement) => {
+    const createTaskHTML = (listElement, defTaskId) => {
         const tasks = listElement.querySelector(`.${ appTasksClassName }`);
-        const id = tasks.children.length;
+        const id = defTaskId ?? tasks.children.length;
         const listId = listElement.dataset.id;
         tasks.insertAdjacentHTML("beforeend", getTaskTemplate(listId, id));
-
-        const taskElement = tasks.querySelector(`#todo-app__task-${id}`);
-        taskElement.querySelector(".js--todo-app__task__value").focus();
-
-        setTaskUpdateEvents(taskElement, listElement);
-        addTaskToList(listElement.dataset.id, { id, value: "", isCompleted: false });
+        return tasks.querySelector(`#todo-app__task-${id}`);
     }
 
     const initEventCreateList = () => {
-        addListBtn.addEventListener("click", createListHTML);
+        addListBtn.addEventListener("click", () => {
+            const listId = createListHTML();
+            addList(listId);
+
+            const listElement = document.getElementById(`todo-app__list-${listId}`);
+            setInputListNameEvent(listElement);
+            setEventCreateTask(listElement);
+        });
     }
 
     const setTaskUpdateEvents = (listElement, taskElement) => {
@@ -158,14 +165,23 @@ function ToDo({ app, addListBtn }) {
         taskValue.addEventListener("input", () => {
             updateTask(listElement.dataset.id, taskElement.dataset.id, taskValue.textContent);
         });
+
         const completeCheckbox = taskElement.querySelector("input[type='checkbox']");
         completeCheckbox.addEventListener("change", () => {
             changeCompletedTask(listElement.dataset.id, taskElement.dataset.id);
+        });
+
+        const deleteTaskBtn = taskElement.querySelector(".js--todo-app__delete-task");
+        deleteTaskBtn.addEventListener("click", () => {
+            const isConfirmed = confirm("Do you want to delete this task?");
+            if (!isConfirmed) return;
+
+            deleteTask(listElement.dataset.id, taskElement.dataset.id);
+            taskElement.remove();
         });
     }
 }
 
 new ToDo({
-    app: document.getElementById("js--todo-app"),
     addListBtn: document.getElementById("js--add-list")
 }).init()
