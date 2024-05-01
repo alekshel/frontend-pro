@@ -1,26 +1,26 @@
 'use strict';
 
-function ToDo({ addListBtn }) {
+function ToDo({addListBtn}) {
     const appListClassName = "js--todo-app__list";
     const appTasksClassName = "js--todo-app__tasks";
     const addTaskClassName = "js--todo-app__add-task";
     const deleteListClassName = "js--todo-app__delete-list";
 
     const getListTemplate = id => `
-        <div id="todo-app__list-${id}" class="todo-app__list ${ appListClassName }" data-id="${ id }">
+        <div id="todo-app__list-${id}" class="todo-app__list ${appListClassName}" data-id="${id}">
             <h2 contenteditable="true">List header</h2>
 
-            <ul class="todo-app__tasks ${ appTasksClassName }"></ul>
+            <ul class="todo-app__tasks ${appTasksClassName}"></ul>
 
             <div class="todo-app__btn-group">
-                <button class="todo-app__btn todo-app__add-task ${ addTaskClassName }">
+                <button class="todo-app__btn todo-app__add-task ${addTaskClassName}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
                     </svg>
                     <span>Add Task ...</span>
                 </button>
                 
-                <button class="todo-app__btn todo-app__delete-list ${ deleteListClassName }">
+                <button class="todo-app__btn todo-app__delete-list ${deleteListClassName}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                         <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
                     </svg>
@@ -31,9 +31,9 @@ function ToDo({ addListBtn }) {
     `;
 
     const getTaskTemplate = (listId, taskId) => `
-        <li id="todo-app__task-${ taskId }" class="todo-app__task" data-id="${ taskId }">
-            <input type="checkbox" id="complete-checkbox-${ listId }-${ taskId }"/>
-            <label for="complete-checkbox-${ listId }-${ taskId }"></label>
+        <li id="todo-app__task-${taskId}" class="todo-app__task" data-id="${taskId}">
+            <input type="checkbox" id="complete-checkbox-${listId}-${taskId}"/>
+            <label for="complete-checkbox-${listId}-${taskId}"></label>
 
             <div contenteditable="true" class="js--todo-app__task__value"></div>
 
@@ -77,7 +77,7 @@ function ToDo({ addListBtn }) {
 
     const addList = (id) => {
         lastListId++;
-        taskLists.push({ id: +id, name: "", tasks: [] });
+        taskLists.push({id: +id, name: "", tasks: []});
         saveToStorage();
     }
 
@@ -147,7 +147,7 @@ function ToDo({ addListBtn }) {
     }
 
     const setEventDeleteList = (listElement) => {
-        const deleteListBtn = listElement.querySelector(`.${ deleteListClassName }`);
+        const deleteListBtn = listElement.querySelector(`.${deleteListClassName}`);
         deleteListBtn.addEventListener("click", () => {
             const isConfirmed = confirm("Do you want to delete this list?");
             if (!isConfirmed) return;
@@ -158,7 +158,7 @@ function ToDo({ addListBtn }) {
     }
 
     const createTaskHTML = (listElement, id = null) => {
-        const tasks = listElement.querySelector(`.${ appTasksClassName }`);
+        const tasks = listElement.querySelector(`.${appTasksClassName}`);
         const currentId = id ?? lastTaskId;
         const listId = listElement.dataset.id;
         tasks.insertAdjacentHTML("beforeend", getTaskTemplate(listId, currentId));
@@ -166,7 +166,7 @@ function ToDo({ addListBtn }) {
     }
 
     const setEventCreateTask = (listElement) => {
-        const addTaskBtn = listElement.querySelector(`.${ addTaskClassName }`);
+        const addTaskBtn = listElement.querySelector(`.${addTaskClassName}`);
         addTaskBtn.addEventListener("click", () => {
             const taskElement = createTaskHTML(listElement);
             taskElement.querySelector(".js--todo-app__task__value").focus();
