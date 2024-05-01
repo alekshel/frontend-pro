@@ -100,7 +100,13 @@ function ToDo({ addListBtn }) {
     const changeCompletedTask = (taskId, listId) => {
         const task = getTask(taskId, listId);
         task.isCompleted = !task.isCompleted;
+        sortTasks(listId);
         saveToStorage();
+    }
+
+    const sortTasks = (listId) => {
+        const list = getList(listId);
+        list.tasks.sort((a, b) => a.isCompleted - b.isCompleted);
     }
 
     const deleteList = (id) => {
@@ -190,6 +196,10 @@ function ToDo({ addListBtn }) {
         const completeCheckbox = taskElement.querySelector("input[type='checkbox']");
         completeCheckbox.addEventListener("change", () => {
             changeCompletedTask(taskId, listId);
+            getList(listId).tasks.forEach(task => {
+                const elementToMove = document.getElementById(`todo-app__task-${task.id}`);
+                taskElement.parentElement.appendChild(elementToMove);
+            });
         });
 
         const deleteTaskBtn = taskElement.querySelector(".js--todo-app__delete-task");
