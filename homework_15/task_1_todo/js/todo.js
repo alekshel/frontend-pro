@@ -69,7 +69,7 @@ function ToDo({ app, addListBtn }) {
     }
 
     const getTaskFromList = (listId, taskId) => {
-        return getListFromTasks(listId).tasks.find(task => task.id === +taskId);
+        return getListFromTasks(+listId).tasks.find(task => task.id === +taskId);
     }
 
     const addList = (id) => {
@@ -79,6 +79,33 @@ function ToDo({ app, addListBtn }) {
 
     const addTaskToList = (listId, task) => {
         getListFromTasks(listId).tasks.push(task);
+        saveToStorage();
+    }
+
+    const updateListName = (listId, name) => {
+        getListFromTasks(listId).name = name.trim();
+        saveToStorage();
+    }
+
+    const updateTask = (listId, taskId, value) => {
+        getTaskFromList(listId, taskId).value = value.trim();
+        saveToStorage();
+    }
+
+    const changeCompletedTask = (listId, taskId) => {
+        const task = getTaskFromList(listId, taskId);
+        task.isCompleted = !task.isCompleted;
+        saveToStorage();
+    }
+
+    const deleteList = (listId) => {
+        taskLists = taskLists.filter(list => list.id !== +listId);
+        saveToStorage();
+    }
+
+    const deleteTask = (listId, taskId) => {
+        const list = getListFromTasks(listId);
+        list.tasks = list.tasks.filter(task => task.id !== +taskId);
         saveToStorage();
     }
 
@@ -92,7 +119,16 @@ function ToDo({ app, addListBtn }) {
         addList(id);
 
         const listElement = document.getElementById(`todo-app__list-${id}`);
+        setInputListNameEvent(listElement);
         setEventCreateTask(listElement);
+    }
+
+    const setInputListNameEvent = (listElement) => {
+        const h2 = listElement.querySelector("h2");
+        h2.addEventListener("input", () => {
+            updateListName(listElement.dataset.id, h2.textContent);
+        });
+        h2.focus();
     }
 
     const setEventCreateTask = (listElement) => {
@@ -105,11 +141,27 @@ function ToDo({ app, addListBtn }) {
         const id = tasks.children.length;
         const listId = listElement.dataset.id;
         tasks.insertAdjacentHTML("beforeend", getTaskTemplate(listId, id));
+
+        const taskElement = tasks.querySelector(`#todo-app__task-${id}`);
+        taskElement.querySelector(".js--todo-app__task__value").focus();
+
+        setTaskUpdateEvents(taskElement, listElement);
         addTaskToList(listElement.dataset.id, { id, value: "", isCompleted: false });
     }
 
     const initEventCreateList = () => {
         addListBtn.addEventListener("click", createListHTML);
+    }
+
+    const setTaskUpdateEvents = (listElement, taskElement) => {
+        const taskValue = taskElement.querySelector(".js--todo-app__task__value");
+        taskValue.addEventListener("input", () => {
+            updateTask(listElement.dataset.id, taskElement.dataset.id, taskValue.textContent);
+        });
+        const completeCheckbox = taskElement.querySelector("input[type='checkbox']");
+        completeCheckbox.addEventListener("change", () => {
+            changeCompletedTask(listElement.dataset.id, taskElement.dataset.id);
+        });
     }
 }
 
