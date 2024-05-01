@@ -29,17 +29,26 @@
 .todo-app__tasks {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     max-height: 325px;
+    height: 100%;
     overflow-y: auto;
 }
 
-.todo-app__add-task {
+.todo-app__task {
+    margin-bottom: 10px;
+}
+
+.todo-app__btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-app__btn {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     height: 36px;
-    padding-left: 8px;
+    padding: 0 8px;
 
     border: 2px solid transparent;
     border-radius: var(--def-radius);
@@ -48,14 +57,23 @@
     cursor: pointer;
 }
 
-.todo-app__add-task:hover {
+.todo-app__btn:hover {
     border-color: var(--color-dark-third);
 }
 
-.todo-app__add-task svg {
+.todo-app__btn svg {
     height: 16px;
     margin-right: 8px;
     fill: var(--text-color);
+}
+
+.todo-app__add-task {
+    background-color: var(--color-dark-third);
+    border-color: var(--color-dark-third);
+}
+
+.todo-app__add-task:hover {
+    opacity: .75;
 }
 
 .todo-app__list.empty {
