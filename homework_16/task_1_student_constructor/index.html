@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function Student(firstName, lastName, birthYear) {
+            const LESSONS_COUNT = 25;
+            const GOOD_GRADE = 90;
+            const GOOD_ATTENDANCE = 0.9;
+
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.birthYear = birthYear;
+
+            let grades = [];
+            let attendance = [];
+
+            this.addGrade = (grade) => {
+                if (grade >= 0 && grade <= 100) {
+                    grades.push(grade);
+                } else {
+                    alert('Invalid grade');
+                }
+            };
+
+            this.addGrades = (...grades) => {
+                for (let i = 0; i < grades.length; i++) {
+                    this.addGrade(grades[i]);
+                }
+            };
+
+            this.getAge = () => {
+                return new Date().getFullYear() - this.birthYear;
+            };
+
+            this.averageGrade = () => {
+                if (grades.length === 0) {
+                    return 0;
+                }
+
+                let sum = 0;
+                for (let i = 0; i < grades.length; i++) {
+                    sum += grades[i];
+                }
+                return sum / grades.length;
+            };
+
+            const setAttendance = (value) => {
+                if (attendance.length < LESSONS_COUNT) {
+                    attendance.push(value);
+                }
+                return this;
+            };
+
+            this.present = () => {
+                return setAttendance(true);
+            };
+
+            this.absent = () => {
+                return setAttendance(false);
+            };
+
+            this.averageAttendance = () => {
+                if (attendance.length === 0) {
+                    return 0;
+                }
+
+                let sum = 0;
+                for (let i = 0; i < attendance.length; i++) {
+                    if (attendance[i]) {
+                        sum++;
+                    }
+                }
+                return sum / attendance.length;
+            };
+
+            this.summary = () => {
+                let averageGrade = this.averageGrade();
+                let averageAttendance = this.averageAttendance();
+
+                switch (true) {
+                    case averageGrade >= GOOD_GRADE && averageAttendance >= GOOD_ATTENDANCE:
+                        return 'Молодець!';
+                    case averageGrade < GOOD_GRADE && averageAttendance < GOOD_ATTENDANCE:
+                        return 'Редиска!';
+                    default:
+                        return 'Добре, але можна краще';
+                }
+            };
+
+            Object.defineProperty(this, 'info', {
+                get: () => {
+                    let message = `Студент ${this.firstName} ${this.lastName}, ${this.getAge()} років\n`;
+                    message += `Середній бал: ${this.averageGrade()}\n`;
+                    message += `Відвідуваність: ${this.averageAttendance()}\n`;
+                    message += `Результат: ${this.summary()}`;
+                    return message;
+                }
+            });
+        }
+
+        const studentShevchenko = new Student('Taras', 'Shevchenko', 1814);
+        studentShevchenko.addGrades(100, 90, 95, 100, 85);
+        studentShevchenko.present().present().present().present().present();
+        console.log(studentShevchenko.info);
+
+        const studentFranko = new Student('Ivan', 'Franko', 1856);
+        studentFranko.addGrades(100, 90, 95, 100, 85);
+        studentFranko.absent().present().present().present().present();
+        console.log(studentFranko.info);
+
+        const studentPushkin = new Student('Alexander', 'Pushkin', 1799);
+        studentPushkin.addGrades(10, 15, 80, 60, 100);
+        studentPushkin.absent().absent().absent().present().present();
+        console.log(studentPushkin.info);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
