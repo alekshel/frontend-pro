@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        class BankAccount {
+            constructor(balance) {
+                this.balance = balance;
+            }
+
+            deposit(amount) {
+                if (amount < 0) {
+                    console.log('Amount must be greater than 0');
+                    return;
+                }
+                this.balance += amount;
+            }
+
+            withdraw(amount) {
+                if (this.balance < amount) {
+                    console.log('Insufficient funds');
+                    return;
+                }
+                this.balance -= amount;
+            }
+
+            getBalance() {
+                return this.balance;
+            }
+        }
+
+        const account1 = new BankAccount(1000);
+        console.log(account1.getBalance());
+        account1.deposit(500);
+        console.log(account1.getBalance());
+        account1.withdraw(200);
+        console.log(account1.getBalance());
+    </script>
+</head>
+<body>
+
+</body>
+</html>
