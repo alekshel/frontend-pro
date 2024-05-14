@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Timer</h1>
+<div id="js--timer">>> Loading please wait...</div>
+
+<script>
+    class Timer {
+        #days;
+        #hours;
+        #minutes;
+        #seconds;
+        #timer;
+
+        constructor({days, hours, minutes, seconds, htmlElement}) {
+            this.#days = days;
+            this.#hours = hours;
+            this.#minutes = minutes;
+            this.#seconds = seconds;
+            this.htmlElement = htmlElement;
+            this.start();
+        }
+
+        start() {
+            this.#timer = setInterval(() => {
+                if (this.#seconds === 0) {
+                    if (this.#minutes === 0) {
+                        if (this.#hours === 0) {
+                            this.#days--;
+                            this.#hours = 23;
+                        } else {
+                            this.#hours--;
+                        }
+                        this.#minutes = 59;
+                    } else {
+                        this.#minutes--;
+                    }
+                    this.#seconds = 59;
+                } else {
+                    this.#seconds--;
+                }
+
+                if (this.#days === 0 && this.#hours === 0 && this.#minutes === 0 && this.#seconds === 0) {
+                    this.stop();
+                }
+
+                this.updateHtml();
+            }, 1000);
+        }
+
+        stop() {
+            clearInterval(this.#timer);
+        }
+
+        updateHtml() {
+            let formattedSeconds = this.#seconds < 10 ? "0" + this.#seconds : this.#seconds;
+            let formattedMinutes = this.#minutes < 10 ? "0" + this.#minutes : this.#minutes;
+            let formattedHours = this.#hours < 10 ? "0" + this.#hours : this.#hours;
+            let formattedDays = this.#days < 10 ? "0" + this.#days : this.#days;
+
+            let timeString = '';
+
+            if (this.#days > 0) {
+                timeString += `${formattedDays} day `;
+            }
+
+            if (this.#days > 0 || this.#hours > 0) {
+                timeString += `${formattedHours}:`;
+            }
+
+            timeString += `${formattedMinutes}:${formattedSeconds}`;
+
+            this.htmlElement.innerHTML = timeString;
+        }
+    }
+
+    new Timer({
+        days: 0,
+        hours: 0,
+        minutes: 1,
+        seconds: 25,
+        htmlElement: document.getElementById('js--timer')
+    });
+</script>
+</body>
+</html>
