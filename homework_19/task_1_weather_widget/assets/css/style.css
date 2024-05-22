@@ -1,0 +1,136 @@
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-a-i-center {
+    align-items: center;
+}
+
+.flex-j-c-center {
+    justify-content: center;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.weather-widget {
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.weather-widget__update {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    font-size: 22px;
+    opacity: .6;
+
+    border: 0;
+    background: transparent;
+
+    transition: all .3s ease-out;
+    cursor: pointer;
+}
+
+.weather-widget__update.rotate {
+    transform: rotate(360deg);
+}
+
+.weather-widget__update:hover {
+    opacity: 1;
+}
+
+.weather__gradient-clear_sky {
+    background: linear-gradient(135deg, #87CEEB, #7FFFD4);
+}
+
+.weather__gradient-few_clouds {
+    background: linear-gradient(135deg, #87CEFA, #ADD8E6);
+}
+
+.weather__gradient_scattered_clouds {
+    background: linear-gradient(135deg, #B0E0E6, #E0FFFF);
+}
+
+.weather__gradient_broken_clouds {
+    background: linear-gradient(135deg, #708090, #D3D3D3);
+}
+
+.weather__gradient_shower_rain {
+    background: linear-gradient(135deg, #4169E1, #6495ED);
+}
+
+.weather__gradient_rain {
+    background: linear-gradient(135deg, #4682B4, #708090);
+}
+
+.weather__gradient_thunderstorm {
+    background: linear-gradient(135deg, #2F4F4F, #556B2F);
+}
+
+.weather__gradient_snow {
+    background: linear-gradient(135deg, #F0F8FF, #FFFAFA);
+}
+
+.weather__gradient_mist {
+    background: linear-gradient(135deg, #DCDCDC, #F5F5F5);
+}
+
+.weather-widget__city {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+}
+
+.weather-widget__time {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.weather-widget__temperature {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.weather-widget__description {
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.weather-widget__feels-like {
+    opacity: .8;
+}
+
+.weather-widget__details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-widget__detail {
+    flex: 1 0 auto;
+}
+
+.weather-widget__detail span {
+    font-size: 12px;
+    opacity: .8;
+}
+
+.weather-widget__detail p {
+    font-size: 16px;
+    line-height: 24px;
+}
