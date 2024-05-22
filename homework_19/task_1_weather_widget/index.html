@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/basic.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main>
+    <div id="js--weather-widget" class="weather-widget weather__gradient-clear_sky flex flex-column">
+        <button id="js--weather-widget__update" class="weather-widget__update">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+
+        <div id="js--weather-widget__city" class="weather-widget__city">Loading...</div>
+        <div id="js--weather-widget__time" class="weather-widget__time"></div>
+
+        <div class="flex">
+            <div class="flex flex-center mr-20">
+                <img id="js--weather-widget__icon" src="" alt="">
+                <div id="js--weather-widget__temperature" class="weather-widget__temperature"></div>
+            </div>
+
+            <div class="flex flex-column flex-j-c-center">
+                <div id="js--weather-widget__description" class="weather-widget__description"></div>
+                <div
+                        id="js--weather-widget__feels-like"
+                        class="weather-widget__feels-like"
+                ></div>
+            </div>
+        </div>
+
+        <div id="js--weather-widget__details" class="flex weather-widget__details"></div>
+    </div>
+</main>
+
+<script src="https://kit.fontawesome.com/1fdb6937d8.js" crossorigin="anonymous"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
