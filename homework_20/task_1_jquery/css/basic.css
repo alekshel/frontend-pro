@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --remove-color: #C22424;
+    --remove-color-dark: #A61717;
+
+    --text-color: #FFFFFF;
+    --bg-color: #1C1C1C;
+    --color-dark-first: #272727;
+    --color-dark-second: #323232;
+    --color-dark-third: #434343;
+
+    --def-radius: 6px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-style: normal;
+    color: var(--text-color);
+
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    background-color: var(--bg-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+button {
+    border: 0;
+    background: none;
+}
+
+ul {
+    padding-left: 0 !important;
+    list-style: none;
+}
+
+textarea {
+    resize: none;
+    border: 0;
+}
+
+[contenteditable] {
+    cursor: text;
+}
+
+textarea:focus,
+[contenteditable]:focus {
+    outline: none;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+
+    display: flex;
+    min-width: 25px;
+    min-height: 25px;
+    width: 25px;
+    height: 25px;
+
+    border: 2px solid var(--text-color);
+    box-sizing: border-box;
+    border-radius: var(--def-radius);
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+    background-color: var(--text-color);
+}
