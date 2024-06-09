@@ -131,12 +131,24 @@ function ToDo({addListBtn}) {
         $(addListBtn).before(getListTemplate(id));
     }
 
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
     const initEventCreateListHTML = () => {
         $(addListBtn).on("click", async () => {
             const listId = await addList();
             createListHTML(listId);
 
-            const $listElement = $(`#todo-app__list-${id}`);
+            const $listElement = $(`#todo-app__list-${listId}`);
             setEventInputListName($listElement);
             setEventCreateTask($listElement);
             setEventDeleteList($listElement);
@@ -145,11 +157,12 @@ function ToDo({addListBtn}) {
 
     const setEventInputListName = ($listElement) => {
         const $h2 = $listElement.find("h2");
-        $h2.on("input", async (event) => {
+        const debouncedUpdate = debounce(async (event) => {
             await updateListName($listElement.data("id"), event.target.textContent);
-        });
+        }, 300);
+        $h2.on("input", debouncedUpdate);
         $h2.focus();
-    }
+    };
 
     const setEventDeleteList = ($listElement) => {
         const $deleteListBtn = $listElement.find(`.${deleteListClassName}`);
@@ -187,9 +200,10 @@ function ToDo({addListBtn}) {
         const listId = $listElement.data("id");
 
         const $taskValue = $taskElement.find(".js--todo-app__task__value");
-        $taskValue.on("input", async (event) => {
+        const debouncedUpdateTask = debounce(async (event) => {
             await updateTask(taskId, listId, event.target.textContent);
-        });
+        }, 300);
+        $taskValue.on("input", debouncedUpdateTask);
 
         $taskValue.on("dblclick", (event) => {
             const modal = $('#modal');
