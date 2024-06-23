@@ -1,0 +1,20 @@
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:nth-child(n+2) {
+    margin-left: 10px;
+}
+
+button.btn-success {
+    background-color: #4CAF50;
+}
+
+button.btn-danger {
+    background-color: #F44336;
+}
