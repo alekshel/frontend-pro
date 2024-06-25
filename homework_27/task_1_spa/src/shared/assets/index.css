@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --primary-color-light: #007bff;
+  --text-color-light: #333;
+  --bg-color-light: #fff;
+  --header-bg-color-light: #f4f4f4;
+
+  --primary-color-dark: #007bff;
+  --text-color-dark: #fff;
+  --bg-color-dark: #1a202c;
+  --header-bg-color-dark: #2d3748;
+
+  --primary-color: var(--primary-color-light);
+  --text-color: var(--text-color-light);
+  --bg-color: var(--bg-color-light);
+  --header-bg-color: var(--header-bg-color-light);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  font-size: inherit;
+  font-family: inherit;
+
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all .3s ease-out;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--header-bg-color);
+}
+
+.header__menu {
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.header__menu a.active {
+  font-weight: 600;
+}
+
+.header__theme_switcher {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  transition: all .3s ease-out;
+  margin-left: 3rem;
+}
+
+.header__theme_switcher:hover {
+  transform: scale(1.2);
+}
+
+main {
+  padding: 1.5rem;
+}
+
+.todo form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.todo form input {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-radius: .5rem;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+.todo form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: .5rem;
+  color: var(--text-color);
+  white-space: nowrap;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.todo ul {
+  display: flex;
+  flex-direction: column;
+  list-style: decimal inside;
+}
