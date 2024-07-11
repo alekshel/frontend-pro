@@ -1,0 +1,16 @@
+.response-box {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.response-box__tag {
+    padding: 5px;
+    border-radius: 4px;
+    line-height: 1;
+    color: #fff;
+    background-color: #333;
+}
+
+.response-box__tag:nth-child(n+2) {
+    margin-left: 5px;
+}
